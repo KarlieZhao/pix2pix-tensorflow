@@ -2,7 +2,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import os
 
 
@@ -19,14 +20,14 @@ def create_op(func, **placeholders):
     return f
 
 downscale = create_op(
-    func=tf.image.resize_images,
+    func=tf.image.resize,
     images=tf.placeholder(tf.float32, [None, None, None]),
     size=tf.placeholder(tf.int32, [2]),
     method=tf.image.ResizeMethod.AREA,
 )
 
 upscale = create_op(
-    func=tf.image.resize_images,
+    func=tf.image.resize,
     images=tf.placeholder(tf.float32, [None, None, None]),
     size=tf.placeholder(tf.int32, [2]),
     method=tf.image.ResizeMethod.BICUBIC,

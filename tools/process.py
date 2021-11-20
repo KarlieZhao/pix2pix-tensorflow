@@ -265,7 +265,7 @@ def main():
         edge_pool = multiprocessing.Pool(a.workers)
 
     if a.workers == 1:
-        with tf.Session() as sess:
+        with tf.compat.v1.Session() as sess:
             for src_path, dst_path in zip(src_paths, dst_paths):
                 process(src_path, dst_path)
                 complete()
@@ -287,7 +287,7 @@ def main():
 
         # init epoch counter for the queue
         local_init_op = tf.local_variables_initializer()
-        with tf.Session() as sess:
+        with tf.compat.v1.Session() as sess:
             sess.run(local_init_op)
 
             coord = tf.train.Coordinator()
